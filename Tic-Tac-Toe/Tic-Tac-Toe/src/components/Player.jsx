@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export default function Player() {
-  const [playerName, setPlayerName] = useState("player");
+export default function Player({ name, symbol }) {
+  const [playerName, setPlayerName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
-  const [playerSymbol, setPlayerSymbol] = useState("X");
+  const [playerSymbol, setPlayerSymbol] = useState(symbol);
 
   function setEditing() {
-    setIsEditing(!isEditing);
+    setIsEditing((editing) => !editing);
   }
 
   function nameHandler(event) {
@@ -23,14 +23,7 @@ export default function Player() {
         {isEditing ? (
           <>
             <input type="text" onChange={nameHandler} value={playerName} />
-            <select
-              value={playerSymbol}
-              onChange={symbolHandler}
-              className="playerSel"
-            >
-              <option>X</option>
-              <option>O</option>
-            </select>
+            <span className="player-symbol">{playerSymbol}</span>
           </>
         ) : (
           <>
@@ -39,7 +32,7 @@ export default function Player() {
           </>
         )}
       </span>
-      <button onClick={setEditing}>Edit</button>
+      <button onClick={setEditing}> {isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
